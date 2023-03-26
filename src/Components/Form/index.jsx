@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { addTask } from '../../redux/tasks/actions'
 import * as C from './form'
 
@@ -12,12 +13,17 @@ const Form = () => {
   function addTasks (e) {
     e.preventDefault()
 
-    const newTask = {
-      content: task,
-      id: Math.floor(Math.random() * 1000)
+    if(task !== ''){
+      const newTask = {
+        content: task,
+        id: Math.floor(Math.random() * 1000)
+      }
+  
+      dispatch(addTask(newTask))
+      setTask('')
+    }else{
+      alert('Digite sua tarefa')
     }
-
-    dispatch(addTask(newTask))
   }
 
   return (
